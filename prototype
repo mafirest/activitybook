@@ -1,0 +1,31 @@
+A.	Installing and configure on GCP
+  The list below is steps to deploy the application on GCP.
+    •	Create a new VM Instance
+    •	Install LAMP stack
+    •	Transfer file or get the code directly in zip file
+    •	Configure and import database.
+  The application is supporting 33 languages. It is a useful feature for diverse global users.
+B.	Deploying with Docker
+  Due to the need to implement the application as fast as possible and adjust a web application resource, in this section, we describe the way to use Docker [11] container technology to deploy the web applications on GCP. Implementing container and configure DB runs are follows:
+  1)	Deploying container docker hub
+    In this example, we build a new Docker container based on the image docker-LAMP mattrayner/lamp: latest-1804.
+    With a Dockerfile:
+        FROM mattrayner/lamp:latest-1804
+        COPY html/ /var/www/html/
+        CMD ["/run.sh"]
+        repositories: thuytrieu/timapp 
+        After package code, one can use docker command to build container then push to docker hub with repositories thuytrieu 
+        docker build -t thuytrieu/timapp:latest . 
+        docker run -d -p 8082:80 --name timapp thuytrieu/timapp:latest; 
+        docker push thuytrieu/timapp 
+        docker ps 
+        docker push thuytrieu/timapp 
+        docker stop app_name 
+        docker rm app_name 
+        docker images 
+        docker container ls 
+  2)	Configure database
+    The access to the running container through:
+        docker exec -it id_container bash
+        configure the file configure.php
+        restart the service
